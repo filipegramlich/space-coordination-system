@@ -1,19 +1,18 @@
-from scs import SCS
+from backend.scs import SCS
 
-def main():
+# 1 - SCS will receive a request
+# 2 - SCS will verify if the queue is empty
+# if queue == empty, can add the data to one of the docking bays.
+# else add to end of the queue
+
+def main(): 
+    
     scs = SCS()
-
-    while True:
-        try:
-            print('Welcome to SCS system')
-            selected_option = int(input("Options -> 1 to verify docking_bays, 2 to add a new docking_bay (or '0' to exit): "))
-            if selected_option == 0:
-                break 
-            elif selected_option == 1:
-                scs.verify_docking_bays()
-            elif selected_option == 2:
-                dock_id = int(input("Enter the ID of the new DockingBay: "))
-                scs.add_docking_bay(dock_id)
-        except ValueError:
-            print("Please enter a valid integer number.")
-main()
+    scs.open_docks()
+    
+    if scs.verify_if_queue_is_empty():
+        scs.verify_which_docking_bays_are_not_occupied()
+        
+    
+if __name__ == "__main__":
+    main()
