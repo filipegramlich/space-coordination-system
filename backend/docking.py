@@ -6,3 +6,6 @@ class DockingBay:
     def __repr__(self):
         return f"DockingBay {self.id}"
 
+    # def dock(self, spacecraft, dock_id):
+        
+        
