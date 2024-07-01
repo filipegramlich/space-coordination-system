@@ -20,16 +20,23 @@ class SCS:
     def verify_if_queue_is_empty(self):
         return self.queue.is_empty()
     
-    def verify_which_docking_bays_are_not_occupied(self, request_data):
+    def verify_which_docking_bays_are_not_occupied(self):
         for dock in self.docking_bays:
             if dock.occupied == False:
                 self.docks_not_occupied.append(dock)
-                
-        if len(self.docks_not_occupied) > 0:
-            self.docks_not_occupied[0] = request_data
-            print(self.docks_not_occupied)
-        else:
-            print('All docking_bays are occupied.')
+            else:
+                self.docks_occupied.append(dock)
+        return self.docks_not_occupied
+    
+    def direct_spacecraft_to_free_dock(self, free_dock, spacecraft_data):
+        free_dock.dock(spacecraft_data)
+        self.docks_not_occupied.remove(free_dock)
+        self.docks_occupied.append(free_dock)
+        
+        print(self.docks_not_occupied)
+        print(self.docks_occupied)         
+    
+        
             
     
             
